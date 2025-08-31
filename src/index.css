@@ -2,41 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Smart Task Manager Design System - Mobile-First Productivity Theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Productivity-focused color palette */
+    --background: 248 50% 98%;
+    --foreground: 215 25% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 25% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 25% 12%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary: Calming blue for focus */
+    --primary: 215 85% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 215 85% 65%;
+    --primary-dark: 215 85% 45%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary: Soft green for completion */
+    --secondary: 155 60% 50%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 155 60% 60%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Success: Bright green for achievements */
+    --success: 142 76% 50%;
+    --success-foreground: 0 0% 100%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Warning: Soft orange for deadlines */
+    --warning: 35 100% 65%;
+    --warning-foreground: 215 25% 12%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Regret: Muted red for missed tasks */
+    --regret: 355 65% 55%;
+    --regret-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --muted: 215 20% 95%;
+    --muted-foreground: 215 15% 45%;
 
-    --radius: 0.5rem;
+    --accent: 200 50% 90%;
+    --accent-foreground: 215 25% 12%;
+
+    --destructive: 355 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 20% 88%;
+    --input: 215 20% 92%;
+    --ring: 215 85% 55%;
+
+    --radius: 0.75rem;
+
+    /* Mobile-optimized spacing */
+    --mobile-padding: 1rem;
+    --card-spacing: 0.75rem;
+    --tab-height: 4rem;
+
+    /* Smooth animations */
+    --animation-fast: 150ms ease-out;
+    --animation-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --animation-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* Shadows for depth */
+    --shadow-card: 0 2px 8px hsl(215 25% 12% / 0.08);
+    --shadow-fab: 0 4px 16px hsl(215 85% 55% / 0.3);
+    --shadow-active: 0 8px 24px hsl(215 25% 12% / 0.15);
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,41 +87,51 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode optimized for mobile productivity */ 
+    --background: 215 30% 8%;
+    --foreground: 215 15% 92%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 215 25% 12%;
+    --card-foreground: 215 15% 92%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 215 25% 12%;
+    --popover-foreground: 215 15% 92%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 215 85% 65%;
+    --primary-foreground: 215 30% 8%;
+    --primary-light: 215 85% 75%;
+    --primary-dark: 215 85% 55%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 155 60% 60%;
+    --secondary-foreground: 215 30% 8%;
+    --secondary-light: 155 60% 70%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --success: 142 76% 60%;
+    --success-foreground: 215 30% 8%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --warning: 35 100% 70%;
+    --warning-foreground: 215 30% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --regret: 355 65% 65%;
+    --regret-foreground: 215 30% 8%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --muted: 215 20% 15%;
+    --muted-foreground: 215 15% 65%;
+
+    --accent: 200 30% 20%;
+    --accent-foreground: 215 15% 92%;
+
+    --destructive: 355 65% 65%;
+    --destructive-foreground: 215 30% 8%;
+
+    --border: 215 20% 18%;
+    --input: 215 20% 16%;
+    --ring: 215 85% 65%;
+
+    /* Dark mode shadows */
+    --shadow-card: 0 2px 8px hsl(215 30% 4% / 0.3);
+    --shadow-fab: 0 4px 16px hsl(215 85% 65% / 0.4);
+    --shadow-active: 0 8px 24px hsl(215 30% 4% / 0.4);
   }
 }
 
@@ -100,6 +141,35 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground min-h-screen;
+    font-family: system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Mobile-first touch targets */
+  button, [role="button"] {
+    @apply touch-none select-none;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Optimized for mobile scrolling */
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar for better mobile experience */
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 2px;
   }
 }
