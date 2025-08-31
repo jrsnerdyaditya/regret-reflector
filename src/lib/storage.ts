@@ -6,7 +6,7 @@ export interface Task {
   title: string;
   isCompleted: boolean;
   isDeadlineTask: boolean;
-  deadline?: string; // ISO date string
+  deadline?: string; // ISO datetime string
   createdDate: string; // ISO date string
   carryForwardDate?: string; // ISO date string
 }
@@ -15,7 +15,7 @@ export interface Regret {
   id: string;
   taskId?: string; // Foreign key to task
   title: string;
-  originalDeadline: string; // ISO date string
+  originalDeadline: string; // ISO datetime string
   regretDate: string; // ISO date string
   reflectionNote?: string;
 }
@@ -194,7 +194,8 @@ export const AutoProcessor = {
 
       if (task.isDeadlineTask && task.deadline) {
         // Check if deadline task is overdue
-        if (task.deadline < today) {
+        const deadlineDate = task.deadline.split('T')[0];
+        if (deadlineDate < today || (deadlineDate === today && new Date(task.deadline) < new Date())) {
           // Move to regrets
           const newRegret: Omit<Regret, 'id'> = {
             taskId: task.id,
@@ -224,6 +225,16 @@ export const DateUtils = {
       weekday: 'long',
       month: 'short',
       day: 'numeric'
+    });
+  },
+
+  formatDateTime: (dateTimeString: string): string => {
+    return new Date(dateTimeString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
     });
   },
 

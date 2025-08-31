@@ -17,6 +17,7 @@ export const TaskCard = ({ date, tasks, onTaskUpdate }: TaskCardProps) => {
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [isDeadlineTask, setIsDeadlineTask] = useState(false);
   const [deadlineDate, setDeadlineDate] = useState("");
+  const [deadlineTime, setDeadlineTime] = useState("");
 
   const isToday = date === DateUtils.getToday();
   const cardTitle = isToday ? "Today" : DateUtils.formatDate(date);
@@ -29,17 +30,25 @@ export const TaskCard = ({ date, tasks, onTaskUpdate }: TaskCardProps) => {
   const handleAddTask = () => {
     if (!newTaskTitle.trim()) return;
 
+    let deadline = undefined;
+    if (isDeadlineTask && deadlineDate) {
+      deadline = deadlineTime 
+        ? `${deadlineDate}T${deadlineTime}:00` 
+        : `${deadlineDate}T23:59:00`;
+    }
+
     TaskStorage.add({
       title: newTaskTitle.trim(),
       isCompleted: false,
       isDeadlineTask,
-      deadline: isDeadlineTask ? deadlineDate : undefined,
+      deadline,
       createdDate: date,
     });
 
     setNewTaskTitle("");
     setIsDeadlineTask(false);
     setDeadlineDate("");
+    setDeadlineTime("");
     setIsAddingTask(false);
     onTaskUpdate();
   };
@@ -105,12 +114,12 @@ export const TaskCard = ({ date, tasks, onTaskUpdate }: TaskCardProps) => {
                 {task.isDeadlineTask && task.deadline && (
                   <div className={cn(
                     "flex items-center gap-1 text-xs px-2 py-1 rounded-full",
-                    task.deadline < DateUtils.getToday() 
+                    new Date(task.deadline) < new Date() 
                       ? "bg-regret/10 text-regret" 
                       : "bg-warning/10 text-warning"
                   )}>
                     <Clock size={10} />
-                    <span>{DateUtils.formatDate(task.deadline)}</span>
+                    <span>{DateUtils.formatDateTime(task.deadline)}</span>
                   </div>
                 )}
                 
@@ -165,13 +174,23 @@ export const TaskCard = ({ date, tasks, onTaskUpdate }: TaskCardProps) => {
             </div>
 
             {isDeadlineTask && (
-              <Input
-                type="date"
-                value={deadlineDate}
-                onChange={(e) => setDeadlineDate(e.target.value)}
-                min={DateUtils.getToday()}
-                className="text-sm"
-              />
+              <div className="space-y-2">
+                <Input
+                  type="date"
+                  value={deadlineDate}
+                  onChange={(e) => setDeadlineDate(e.target.value)}
+                  min={DateUtils.getToday()}
+                  className="text-sm"
+                  placeholder="Select date"
+                />
+                <Input
+                  type="time"
+                  value={deadlineTime}
+                  onChange={(e) => setDeadlineTime(e.target.value)}
+                  className="text-sm"
+                  placeholder="Select time (optional)"
+                />
+              </div>
             )}
 
             <div className="flex gap-2">
@@ -191,6 +210,7 @@ export const TaskCard = ({ date, tasks, onTaskUpdate }: TaskCardProps) => {
                   setNewTaskTitle("");
                   setIsDeadlineTask(false);
                   setDeadlineDate("");
+                  setDeadlineTime("");
                 }}
               >
                 Cancel

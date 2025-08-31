@@ -92,7 +92,7 @@ export const RegretsTab = () => {
                     <div className="flex flex-wrap gap-2 mt-2">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
                         <Calendar size={10} />
-                        <span>Due: {DateUtils.formatDate(regret.originalDeadline)}</span>
+                        <span>Due: {DateUtils.formatDateTime(regret.originalDeadline)}</span>
                       </div>
                       <div className="flex items-center gap-1 text-xs text-regret bg-regret/10 px-2 py-1 rounded-full">
                         <Heart size={10} />
